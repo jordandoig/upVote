@@ -1,0 +1,17 @@
+{
+  "name": "upVote",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jordandoig/upVote.git",
+  "author": "Jordan Doig <jordandoig@live.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "lite-server"
+  },
+  "devDependencies": {
+    "lite-server": "^2.3.0"
+  },
+  "dependencies": {
+    "angular": "1.6.0"
+  }
+}
