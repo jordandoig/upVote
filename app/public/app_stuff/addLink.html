@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-8">
+
+    <form ng-submit='$ctrl.addLink()'>
+      <div>
+        <label for="title">Title</label>
+        <input type='text' id="title" class="form-control" ng-model='$ctrl.newLink.title' required>
+      </div>
+      <div>
+        <label for="body">Body</label>
+        <textarea id="body" class="form-control" ng-model='$ctrl.newLink.body' required></textarea>
+      </div>
+      <div>
+        <label for="author">Author</label>
+        <input type='text' id="author" class="form-control" ng-model='$ctrl.newLink.author' required>
+      </div>
+      <div>
+        <label for="image-url">Image URL</label>
+        <input type='url' id="image-url" class="form-control" ng-model='$ctrl.newLink.image_url' required>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">
+          Create Post
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>

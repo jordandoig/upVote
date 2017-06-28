@@ -1,0 +1,73 @@
+<div class="pull-right">
+  <p><a class="btn btn-info" ui-sref='addLink'>New Post</a></p>
+</div>
+
+<ul class="nav nav-pills">
+  <li role="presentation" class="active">
+    <input ng-model="filter" type="search" class="form-control input-sm search-form" placeholder="Filter">
+  </li>
+  <div class="form-inline">
+    <label for="sort">  Sort by </label>
+    <select ng-model='sortLinks' ng-init='sortLinks = "-created_at"' class="form-control" id="sort">
+      <option value="-created_at">Date (desc.)</option>
+      <option value="created_at">Date (asc.)</option>
+      <option value="-vote_count">Votes (desc.)</option>
+      <option value="vote_count">Votes (asc.)</option>
+    </select>
+  </div>
+</ul>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="well" ng-repeat='link in $ctrl.posts | orderBy: sortLinks | filter: {title: filter}'>
+      <div class="media-left imageBox">
+        <img class="media-object linkImage" ng-src={{link.image_url}}>
+        <a ui-sref="editLink({id: link.id})">Edit</a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">
+          {{link.title}}
+          |
+          <a><i ng-click='$ctrl.upVote(link)' class="glyphicon glyphicon-arrow-up"></i></a>
+          <a><i ng-click='$ctrl.downVote(link)' class="glyphicon glyphicon-arrow-down"></i></a>
+          {{link.vote_count}}
+        </h4>
+        <div class="text-right">
+          {{link.author}}
+        </div>
+        <p>
+          {{link.body}}
+        </p>
+        <div>
+          <span am-time-ago='link.created_at'></span>
+          |
+          <i class="glyphicon glyphicon-comment"></i>
+          <a ng-hide='$ctrl.commentsOn(link.id)' ng-click="$ctrl.toggleComments(link.id)">
+            <ng-pluralize count='link.comments.length' when='{ "0": "No comments", "1": "1 comment", "other": "{} comments"}'></ng-pluralize>
+          </a>
+          <a ng-show='$ctrl.commentsOn(link.id)' ng-click="$ctrl.toggleComments(link.id)">
+            <ng-pluralize count='link.comments.length' when='{ "1": "Hide comment", "other": "Hide comments"}'></ng-pluralize>
+          </a>
+        </div>
+        <div class="row" ng-show='$ctrl.commentsOn(link.id)'>
+          <div class="col-md-offset-1">
+            <hr>
+            <p ng-repeat='comment in link.comments'>
+              {{comment.content}} | <span am-time-ago='comment.created_at'></span>
+            </p>
+            <form ng-submit='$ctrl.addComment(link)' class="form-inline">
+              <div class="form-group">
+                <input ng-model="$ctrl.newComment.content" class="form-control">
+              </div>
+              <div class="form-group">
+                <input value="Add Comment" type="submit" class="btn btn-primary">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
